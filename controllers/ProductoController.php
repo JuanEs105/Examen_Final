@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../config/database.php';
+require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../models/Producto.php';
 
 class ProductoController {
@@ -19,7 +19,7 @@ class ProductoController {
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $productos[] = $row;
         }
-        include __DIR__ . '/../views/producto_list.php';
+        include __DIR__ . '/../views/from_producto.php';
     }
 
     public function create() {
@@ -32,11 +32,11 @@ class ProductoController {
                 header("Location: index.php?action=list"); 
                 exit();
             } else {
-                echo "<p style='color:red;'>Error al registrar el producto.</p>";
+                echo "<p >Error al registrar el producto.</p>";
             }
         }
        
-        include __DIR__ . '/../views/producto_form.php';
+        include __DIR__ . 'index.html';
     }
 }
 ?>

@@ -14,8 +14,17 @@ class Producto {
     }
 
     
+    public function getAll() {
+        $query = "SELECT id, nombre, cantidad, precio_unitario FROM " . $this->table_name . " ORDER BY id DESC";
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+   
     public function create() {
         $query = "INSERT INTO " . $this->table_name . " SET nombre=:nombre, cantidad=:cantidad, precio_unitario=:precio_unitario";
+
         $stmt = $this->conn->prepare($query);
 
         
@@ -23,7 +32,7 @@ class Producto {
         $this->cantidad = htmlspecialchars(strip_tags($this->cantidad));
         $this->precio_unitario = htmlspecialchars(strip_tags($this->precio_unitario));
 
-        
+       
         $stmt->bindParam(":nombre", $this->nombre);
         $stmt->bindParam(":cantidad", $this->cantidad);
         $stmt->bindParam(":precio_unitario", $this->precio_unitario);
@@ -32,14 +41,6 @@ class Producto {
             return true;
         }
         return false;
-    }
-
-    
-    public function read() {
-        $query = "SELECT id, nombre, cantidad, precio_unitario FROM " . $this->table_name . " ORDER BY nombre ASC";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt;
     }
 }
 ?>
